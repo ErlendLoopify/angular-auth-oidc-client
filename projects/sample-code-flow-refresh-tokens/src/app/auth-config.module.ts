@@ -5,16 +5,22 @@ import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
   imports: [
     AuthModule.forRoot({
       config: {
-        authority: 'https://offeringsolutions-sts.azurewebsites.net',
+        authority: 'https://auth.loopify.com',
         redirectUrl: window.location.origin,
         postLogoutRedirectUri: window.location.origin,
-        clientId: 'angularCodeRefreshTokens',
-        scope: 'openid profile email taler_api offline_access',
+        clientId: 'loopify-web-app',
+        scope: 'openid profile email User offline_access',
         responseType: 'code',
         silentRenew: true,
         useRefreshToken: true,
+        // ignoreNonceAfterRefresh: false,
+        disableIdTokenValidation: true,
+        autoUserInfo: false,
         // triggerRefreshWhenIdTokenExpired: false,
         logLevel: LogLevel.Debug,
+        customParamsRefreshTokenRequest: {
+          account_guid: 'DG7O1D45',
+        },
       },
     }),
   ],
