@@ -13,5 +13,10 @@ export class AppComponent implements OnInit {
       console.log('app authenticated', isAuthenticated);
       console.log(`Current access token is '${accessToken}'`);
     });
+    this.oidcSecurityService.getAuthenticationResult().subscribe((payload) => {
+      //How can I get this value in the auth-config.module.ts?
+      console.log('current_account_guid', payload.current_account_guid);
+    });
+
   }
 }
