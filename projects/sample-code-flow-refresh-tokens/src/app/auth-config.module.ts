@@ -1,5 +1,14 @@
 import { NgModule } from '@angular/core';
-import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
+import { AuthModule, LogLevel, OidcSecurityService } from 'angular-auth-oidc-client';
+
+// export const getAccountGuid = (oidcSecurityService: OidcSecurityService) => {
+//   oidcSecurityService.getAuthenticationResult().subscribe((payload) => {
+//     //How can I get this value in the auth-config.module.ts?
+//     console.log('current_account_guid in auth config', payload.current_account_guid);
+//   });
+
+//   return 'K9RPENAW'
+// };
 
 @NgModule({
   imports: [
@@ -19,7 +28,7 @@ import { AuthModule, LogLevel } from 'angular-auth-oidc-client';
         // triggerRefreshWhenIdTokenExpired: false,
         logLevel: LogLevel.Debug,
         customParamsRefreshTokenRequest: {
-          account_guid: 'DG7O1D45',
+          account_guid: ''
         },
       },
     }),

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OidcClientNotification, OidcSecurityService, OpenIdConfiguration, UserDataResult } from 'angular-auth-oidc-client';
+import { Console } from 'console';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -14,7 +15,9 @@ export class HomeComponent implements OnInit {
   constructor(public oidcSecurityService: OidcSecurityService) {}
 
   ngOnInit() {
+    
     this.configuration$ = this.oidcSecurityService.getConfiguration();
+    console.log(this.configuration$,"Config");
     this.userData$ = this.oidcSecurityService.userData$;
 
     this.oidcSecurityService.isAuthenticated$.subscribe(({ isAuthenticated }) => {
@@ -38,7 +41,10 @@ export class HomeComponent implements OnInit {
   // }
 
   refreshSession() {
-    this.oidcSecurityService.forceRefreshSession().subscribe((result) => console.log(result));
+    this.oidcSecurityService.getAuthenticationResult().subscribe((payload) => {
+      this.oidcSecurityService.forceRefreshSession({ account_guid: payload.current_account_guid }).subscribe((result) => console.log(result));
+    });
+
   }
 
   logout() {
